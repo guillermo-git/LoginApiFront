@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Route, Router } from '@angular/router';
 import { AppBaseComponet } from '../../../../core/utils/AppBaseComponet';
+import { AuthLoginDto } from '../../../../core/dto/authLoginDto';
+import { AuthService } from '../../../../core/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +14,7 @@ export class LoginComponent extends AppBaseComponet {
 
   public loginForm: FormGroup;
 
-  constructor(private router:Router, private fb: FormBuilder){
+  constructor(private router:Router, private fb: FormBuilder, private authservice:AuthService){
 
     super();
     this.loginForm=this.fb.group({
@@ -29,8 +31,16 @@ export class LoginComponent extends AppBaseComponet {
    */
   public singIn() {
 
+    let dtoLogin: AuthLoginDto;
+
     if(this.loginForm.valid){
-      alert("hola")
+      let email=this.loginForm.get('email')?.value;
+      let password= this.loginForm.get('password')?.value;
+      dtoLogin={
+        "email":email,
+        "password": password
+      }
+this.authservice.login(dtoLogin); 
 
     }else{
       alert("error")
@@ -59,6 +69,8 @@ export class LoginComponent extends AppBaseComponet {
 
     
   }
+
+  
 }
 
 
