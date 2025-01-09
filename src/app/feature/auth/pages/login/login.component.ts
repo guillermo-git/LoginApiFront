@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Route, Router } from '@angular/router';
 import { AppBaseComponet } from '../../../../core/utils/AppBaseComponet';
@@ -34,13 +34,18 @@ export class LoginComponent extends AppBaseComponet {
     let dtoLogin: AuthLoginDto;
 
     if(this.loginForm.valid){
-      let email=this.loginForm.get('email')?.value;
-      let password= this.loginForm.get('password')?.value;
+      alert("todo nice");
+      let email=this.loginForm.get('email')!.value;
+      let password= this.loginForm.get('password')!.value;
+
+      
       dtoLogin={
         "email":email,
         "password": password
       }
-this.authservice.login(dtoLogin); 
+
+      console.log(dtoLogin);
+//this.authservice.login(dtoLogin); 
 
     }else{
       alert("error")
