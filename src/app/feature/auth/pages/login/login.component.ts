@@ -32,15 +32,22 @@ export class LoginComponent extends AppBaseComponet {
   public singIn() {
 
     let dtoLogin: AuthLoginDto;
+    
 
     if(this.loginForm.valid){
-      let email=this.loginForm.get('email')?.value;
-      let password= this.loginForm.get('password')?.value;
+      let email=this.loginForm.get('email')!.value ;
+      let password= this.loginForm.get('password')!.value;
       dtoLogin={
         "email":email,
         "password": password
+        
       }
-this.authservice.login(dtoLogin); 
+
+      this.authservice.signIn(dtoLogin).subscribe(value=>{
+        this.
+      });
+    //  console.log(dtoLogin);
+//this.authservice.login(dtoLogin); 
 
     }else{
       alert("error")
