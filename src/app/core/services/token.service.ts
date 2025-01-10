@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class TokenServiceService {
+export class TokenService {
 
   constructor() { }
 
@@ -12,6 +12,7 @@ export class TokenServiceService {
 
   }
 
+  
   public deleteToken():void{
 
   }
