@@ -1,10 +1,9 @@
- import { Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Route, Router } from '@angular/router';
 import { AppBaseComponet } from '../../../../core/utils/AppBaseComponet';
 import { AuthLoginDto } from '../../../../core/dto/authLoginDto';
 import { AuthService } from '../../../../core/services/auth.service';
-import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -30,12 +29,12 @@ export class LoginComponent extends AppBaseComponet {
   /**
    * singIn
    */
-  public  async singIn(): Promise<void> {
+  public singIn() {
 
     let dtoLogin: AuthLoginDto;
-    
 
     if(this.loginForm.valid){
+      alert("todo nice");
       let email=this.loginForm.get('email')!.value;
       let password= this.loginForm.get('password')!.value;
 
@@ -43,15 +42,10 @@ export class LoginComponent extends AppBaseComponet {
       dtoLogin={
         "email":email,
         "password": password
-        
       }
 
-     await lastValueFrom( this.authservice.signIn(dtoLogin));
-      
-     console.log(localStorage.getItem("token"))
-    //  console.log(dtoLogin);
-     // console.log(dtoLogin);
-//this.authservice.login(dtoLogin); 
+      console.log(dtoLogin);
+this.authservice.signIn(dtoLogin); 
 
     }else{
       alert("error")
