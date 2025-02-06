@@ -10,6 +10,7 @@ import { TokenService } from './token.service';
 
 
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -18,18 +19,23 @@ export class AuthService {
 
 private apiUrl: string= environment.apiUrl;
 
-  constructor(private http:HttpClient, private tokenService: TokenService) { }
+  constructor(private http:HttpClient, private tokeService: TokenService) { }
 
 
- public signIn(authLoginDto: AuthLoginDto): Subscription{
-  return this.http.post(this.apiUrl+"/Acceso/login", authLoginDto).subscribe({
-    next: value=>{
-      console.log(value)
-    }
-  })
- }
+
+
+public signIn(authLoginDto: AuthLoginDto): Observable<AuthLoginResponseDto>{
+  return this.http.post<AuthLoginResponseDto>(this.apiUrl+"/Acceso/login", authLoginDto).pipe(
+    tap(Response=>{
+      this.tokeService.saveToken(Response.jwt)
+    })
+  )
 
   
+}
+
 
 }
+
+
      

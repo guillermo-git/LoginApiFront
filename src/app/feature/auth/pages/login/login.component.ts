@@ -4,6 +4,8 @@ import { Route, Router } from '@angular/router';
 import { AppBaseComponet } from '../../../../core/utils/AppBaseComponet';
 import { AuthLoginDto } from '../../../../core/dto/authLoginDto';
 import { AuthService } from '../../../../core/services/auth.service';
+import { lastValueFrom } from 'rxjs';
+import { TokenService } from '../../../../core/services/token.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +16,7 @@ export class LoginComponent extends AppBaseComponet {
 
   public loginForm: FormGroup;
 
-  constructor(private router:Router, private fb: FormBuilder, private authservice:AuthService){
+  constructor(private router:Router, private fb: FormBuilder, private authservice:AuthService, private tokenService: TokenService ){
 
     super();
     this.loginForm=this.fb.group({
@@ -29,23 +31,27 @@ export class LoginComponent extends AppBaseComponet {
   /**
    * singIn
    */
-  public singIn() {
+  public async singIn() {
 
     let dtoLogin: AuthLoginDto;
 
     if(this.loginForm.valid){
-      alert("todo nice");
+     
+
+
       let email=this.loginForm.get('email')!.value;
       let password= this.loginForm.get('password')!.value;
 
-      
       dtoLogin={
         "email":email,
         "password": password
       }
 
-      console.log(dtoLogin);
-this.authservice.signIn(dtoLogin); 
+      
+   await lastValueFrom(this.authservice.signIn(dtoLogin));
+
+   console.log(this.tokenService.getToken())
+
 
     }else{
       alert("error")
