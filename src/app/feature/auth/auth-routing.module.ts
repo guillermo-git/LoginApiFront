@@ -10,7 +10,8 @@ const routes: Routes = [
   },
   {
     path:"registro",
-    component:RegistroComponent
+    component:RegistroComponent,
+    
   }
 ];
 
