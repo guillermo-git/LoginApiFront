@@ -52,6 +52,8 @@ export class LoginComponent extends AppBaseComponet {
 
    console.log(this.tokenService.getToken())
 
+   await this.router.navigateByUrl("/home-inicio")
+ 
 
     }else{
       alert("error")
